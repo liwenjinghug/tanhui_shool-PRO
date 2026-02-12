@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "碳惠校园",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "ec-canvas": "/ec-canvas/ec-canvas"
+  }
+}

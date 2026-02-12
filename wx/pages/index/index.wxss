@@ -1,0 +1,133 @@
+/** index.wxss **/
+page { height: 100vh; width: 100vw; overflow: hidden; font-family: sans-serif; }
+.container { width: 100%; height: 100%; position: relative; }
+.page-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+/* --- 顶部用户信息 --- */
+.user-pill { 
+  position: absolute; top: 110rpx; left: 30rpx; 
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); 
+  border-radius: 40rpx; display: flex; align-items: center; 
+  padding: 6rpx 20rpx 6rpx 6rpx; border: 1rpx solid rgba(255,255,255,0.3); z-index: 10;
+}
+.avatar { width: 70rpx; height: 70rpx; border-radius: 50%; border: 2rpx solid #fff; }
+.user-meta { margin-left: 15rpx; display: flex; flex-direction: column; }
+.nickname-text { font-size: 24rpx; font-weight: bold; color: #fff; }
+.score-tag { font-size: 20rpx; color: #ffd700; }
+
+/* --- 熊猫互动 --- */
+.panda-interaction { 
+  position: absolute; 
+  top: 420rpx; right: 0; 
+  background: #e0f7fa; color: #006064; 
+  padding: 16rpx 30rpx 16rpx 40rpx; 
+  border-radius: 40rpx 0 0 40rpx; 
+  font-size: 26rpx; font-weight: bold; display: flex; align-items: center; 
+  z-index: 10; box-shadow: -2rpx 4rpx 10rpx rgba(0,0,0,0.1);
+}
+.panda-mini { width: 44rpx; height: 44rpx; margin-left: 12rpx; }
+
+/* --- 空气指数气泡 --- */
+.aqi-floater { position: absolute; top: 220rpx; left: 30rpx; z-index: 5; }
+.aqi-circle { 
+  width: 130rpx; height: 130rpx; 
+  background: rgba(255,255,255,0.95); border-radius: 50%; border: 4rpx solid #81c784; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+}
+.aqi-label { font-size: 20rpx; color: #d32f2f; font-weight: bold; }
+.aqi-num { font-size: 40rpx; font-weight: 800; color: #2e7d32; }
+.aqi-desc { font-size: 18rpx; color: #666; max-width: 100rpx; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+/* --- 中部导航 (磨砂质感) --- */
+.top-nav-row { 
+  position: absolute; top: 600rpx; width: 100%; display: flex; justify-content: space-around; 
+  padding: 0 20rpx; z-index: 5; box-sizing: border-box; 
+}
+.nav-btn { display: flex; flex-direction: column; align-items: center; }
+.nav-btn-icon { 
+  width: 100rpx; height: 100rpx; 
+  background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(5px); 
+  border: 1rpx solid rgba(255, 255, 255, 0.8); border-radius: 30rpx; 
+  margin-bottom: 15rpx; padding: 20rpx; box-sizing: border-box; 
+  box-shadow: 0 6rpx 15rpx rgba(0,0,0,0.1);
+}
+.nav-btn text { font-size: 24rpx; color: #333; font-weight: 600; text-shadow: 0 1px 2px rgba(255,255,255,0.9); }
+
+/* --- 底部面板 --- */
+.bottom-panel { 
+  position: absolute; bottom: 0; width: 100%; height: 35%; 
+  background: linear-gradient(180deg, rgba(56,142,60,0) 0%, rgba(56,142,60,0.95) 40%, rgba(27,94,32,1) 100%); 
+  border-radius: 60rpx 60rpx 0 0; padding: 60rpx 40rpx 40rpx; display: flex; box-sizing: border-box; 
+}
+
+/* 左侧列表 */
+.left-panel { width: 50%; padding-right: 20rpx; display: flex; flex-direction: column; padding-top: 40rpx; }
+.panel-header { display: flex; align-items: center; margin-bottom: 20rpx; }
+.header-icon { width: 36rpx; height: 36rpx; margin-right: 10rpx; }
+.header-title { font-size: 30rpx; color: #fff; font-weight: bold; }
+.behavior-list { flex: 1; height: 0; }
+.behavior-item { background: rgba(255,255,255,0.15); border-radius: 16rpx; padding: 12rpx 20rpx; margin-bottom: 12rpx; }
+.behavior-time { font-size: 20rpx; color: #a5d6a7; }
+.behavior-content { display: flex; justify-content: space-between; }
+.action-name { font-size: 24rpx; color: #fff; }
+.points-add { font-size: 24rpx; color: #ffd700; font-weight: bold; }
+.empty-tip { font-size: 22rpx; color: #eee; text-align: center; margin-top: 20rpx; }
+
+/* --- 右侧卫星环绕布局 --- */
+.right-panel { width: 0; height: 0; }
+.badge-item { 
+  width: 110rpx; height: 110rpx; border-radius: 28rpx; position: absolute; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  color: #fff; font-size: 22rpx; font-weight: bold; box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.2); z-index: 5; 
+}
+.badge-blue { background: #42a5f5; bottom: 240rpx; right: 40rpx; transform: rotate(-5deg); }
+.badge-cyan { background: #26c6da; bottom: 180rpx; right: 180rpx; transform: rotate(0deg); }
+.badge-orange { background: #ffa726; bottom: 50rpx; right: 250rpx; transform: rotate(5deg); }
+
+/* 普惠商城中心 */
+.mall-entry { position: absolute; bottom: 40rpx; right: 30rpx; display: flex; flex-direction: column; align-items: center; z-index: 10; }
+.mall-img { width: 140rpx; height: 140rpx; margin-bottom: -25rpx; filter: drop-shadow(0 4rpx 8rpx rgba(0,0,0,0.2)); }
+.mall-title { background: #fff; color: #2e7d32; font-size: 22rpx; padding: 6rpx 20rpx; border-radius: 30rpx; font-weight: 800; box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.15); z-index: 11; }
+
+/* --- 弹窗与图表样式 --- */
+.aqi-modal-mask { 
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+  background: rgba(0, 0, 0, 0.6); z-index: 999; 
+  display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); 
+}
+.aqi-modal-content { 
+  width: 85%; background: #fff; border-radius: 40rpx; padding: 40rpx; box-sizing: border-box; 
+  animation: popUp 0.3s ease-out; 
+}
+@keyframes popUp { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40rpx; }
+.modal-title { font-size: 36rpx; font-weight: 800; color: #2e7d32; }
+.close-btn { font-size: 40rpx; color: #999; padding: 0 10rpx; }
+
+.detail-grid { display: flex; justify-content: space-between; margin-bottom: 20rpx; background: #f1f8e9; padding: 30rpx; border-radius: 24rpx; }
+.grid-item { display: flex; flex-direction: column; align-items: center; }
+.grid-val { font-size: 32rpx; font-weight: bold; color: #333; }
+.grid-label { font-size: 22rpx; color: #666; margin-top: 6rpx; }
+
+/* 图表区域 */
+.chart-section { margin-top: 10rpx; }
+.section-title { font-size: 28rpx; font-weight: bold; color: #333; margin-bottom: 20rpx; display: block; }
+.chart-box { 
+  width: 100%; height: 400rpx; /* ⚠️ 图表高度必须设置 */ 
+  position: relative; 
+}
+ec-canvas { width: 100%; height: 100%; }
+
+/* 分析文本 */
+.analysis-box { 
+  margin-top: 20rpx; background: #f9fbe7; padding: 24rpx; 
+  border-radius: 20rpx; border: 1rpx solid #e8f5e9; 
+  display: flex; flex-direction: column; align-items: flex-start; 
+}
+.analysis-tag { 
+  background: linear-gradient(90deg, #66bb6a, #43a047); color: #fff; 
+  font-size: 20rpx; padding: 4rpx 12rpx; border-radius: 10rpx 10rpx 10rpx 0; 
+  font-weight: bold; margin-bottom: 12rpx; 
+}
+.analysis-text { font-size: 24rpx; color: #558b2f; line-height: 1.5; text-align: justify; }

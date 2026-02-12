@@ -1,0 +1,24 @@
+<view class="container">
+  <image class="page-bg" src="/images/bg_campus.png" mode="aspectFill"></image>
+
+  <view class="login-card">
+    <view class="title-area">
+      <text class="app-name">碳惠校园</text>
+      <text class="app-desc">记录你的低碳生活</text>
+    </view>
+
+    <view class="avatar-section">
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+      </button>
+      <text class="tip-text">点击设置头像</text>
+    </view>
+
+    <view class="input-section">
+      <text class="label">昵称</text>
+      <input type="nickname" class="nick-input" placeholder="请输入昵称" bindchange="onInputChange" />
+    </view>
+
+    <button class="login-btn" bindtap="handleLogin">一键开启低碳之旅</button>
+  </view>
+</view>

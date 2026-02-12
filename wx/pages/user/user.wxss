@@ -1,0 +1,103 @@
+/* pages/user/user.wxss */
+page {
+  font-family: -apple-system, sans-serif;
+  color: #333;
+}
+
+/* --- 1. 全屏背景 --- */
+.page-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+  background: linear-gradient(180deg, #17c385 0%, #17c385 35%, #f0f7f5 35%, #f0f7f5 100%);
+}
+
+/* --- 2. 导航栏 --- */
+.custom-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; }
+.nav-content { width: 100%; height: 100%; display: flex; align-items: center; padding-left: 20rpx; }
+.nav-title { color: #fff; font-size: 32rpx; font-weight: 600; position: absolute; left: 50%; transform: translateX(-50%); }
+.back-btn { padding: 10rpx 20rpx; }
+.css-back-arrow { width: 20rpx; height: 20rpx; border-left: 4rpx solid #fff; border-bottom: 4rpx solid #fff; transform: rotate(45deg); }
+
+/* --- 3. 头部信息 --- */
+.header-content {
+  width: 100%; padding-left: 40rpx; padding-right: 40rpx; padding-bottom: 60rpx; box-sizing: border-box;
+}
+.user-info-row { display: flex; align-items: center; margin-top: 30rpx; }
+.avatar-btn {
+  padding: 0; margin: 0; background: none; border: none; width: 140rpx; height: 140rpx; position: relative; border-radius: 50%;
+  box-shadow: 0 0 20rpx rgba(255,255,255,0.4);
+}
+.avatar-btn::after { border: none; }
+.user-avatar { width: 140rpx; height: 140rpx; border-radius: 50%; border: 4rpx solid rgba(255, 255, 255, 0.9); }
+.camera-icon {
+  position: absolute; bottom: 0; right: 0; background: #333; color: #fff;
+  font-size: 20rpx; width: 40rpx; height: 40rpx; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2rpx solid #fff;
+}
+.user-text { margin-left: 30rpx; color: #fff; display: flex; flex-direction: column; }
+.user-name-row { display: flex; align-items: center; margin-bottom: 12rpx; }
+.name-txt { font-size: 40rpx; font-weight: bold; text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.1); }
+.edit-icon { margin-left: 10rpx; font-size: 28rpx; opacity: 0.8; }
+.user-id { font-size: 24rpx; opacity: 0.9; background: rgba(0,0,0,0.1); padding: 4rpx 12rpx; border-radius: 20rpx; align-self: flex-start;}
+
+/* --- 4. 主要内容 (已修改：撑满全屏) --- */
+.main-content {
+  /* 🔴 关键修改：去掉了左右 padding，设为 0 */
+  padding: 0; 
+  margin-top: -30rpx; 
+  padding-bottom: 80rpx;
+  width: 100%;
+}
+
+/* 磨砂玻璃卡片 */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.9); /* 提高不透明度，让白色更明显 */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  /* 🔴 修改：去掉左右边框，保留上下分割线 */
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.menu-card {
+  width: 100%;
+  /* 🔴 修改：去掉了圆角，变成直角矩形，贴合屏幕 */
+  border-radius: 0; 
+  margin-bottom: 20rpx; 
+  padding: 30rpx 0;
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-size: 28rpx; color: #666; font-weight: bold;
+  margin-left: 30rpx; margin-bottom: 20rpx;
+  border-left: 8rpx solid #17c385; padding-left: 14rpx;
+}
+
+.grid-container {
+  display: flex; flex-wrap: wrap; width: 100%; justify-content: flex-start;
+}
+
+.menu-item {
+  /* 🔴 保持 20%，确保一行5个 */
+  width: 20%; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 24rpx 0; box-sizing: border-box;
+}
+
+.menu-icon { width: 52rpx; height: 52rpx; margin-bottom: 12rpx; opacity: 0.9; }
+.menu-name { font-size: 22rpx; color: #333; font-weight: 500; white-space: nowrap; }
+.menu-item:active { background: rgba(0,0,0,0.03); }
+
+.footer-spacer { height: 60rpx; width: 100%; }
+
+/* --- 5. 弹窗样式 (不变) --- */
+.modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+.modal-box { width: 80%; background: #fff; border-radius: 24rpx; padding: 40rpx; }
+.modal-title { text-align: center; font-size: 32rpx; font-weight: bold; margin-bottom: 40rpx; }
+.input-wrapper { background: #f5f5f5; padding: 20rpx; border-radius: 12rpx; margin-bottom: 40rpx; }
+.nickname-input { width: 100%; height: 60rpx; }
+.modal-btns { display: flex; justify-content: space-between; }
+.btn-cancel, .btn-confirm { width: 45%; font-size: 28rpx; border-radius: 40rpx; }
+.btn-cancel { background: #f5f5f5; color: #666; }
+.btn-confirm { background: #17c385; color: #fff; }

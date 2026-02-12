@@ -1,0 +1,74 @@
+<view class="container">
+  
+  <view class="page-bg"></view>
+
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px; height: {{navBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="goBack">
+        <view class="css-back-arrow"></view>
+      </view>
+      <text class="nav-title">个人中心</text>
+    </view>
+  </view>
+
+  <view class="header-content" style="padding-top: {{statusBarHeight + navBarHeight}}px;">
+    <view class="user-info-row">
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
+        <view class="camera-icon">📷</view>
+      </button>
+      
+      <view class="user-text">
+        <view class="user-name-row" bindtap="showEditNameModal">
+          <text class="name-txt">{{userInfo.nickName}}</text>
+          <view class="edit-icon">✎</view>
+        </view>
+        <text class="user-id">ID: {{userInfo.userId}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="main-content">
+    
+    <view class="menu-card glass-effect">
+      <view class="card-title">我的服务</view>
+      <view class="grid-container">
+        <block wx:for="{{menuList1}}" wx:key="name">
+          <view class="menu-item" bindtap="handleMenuClick" data-name="{{item.name}}">
+            <image src="{{item.icon}}" class="menu-icon" mode="aspectFit"></image>
+            <text class="menu-name">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="menu-card glass-effect">
+      <view class="card-title">系统工具</view>
+      <view class="grid-container">
+        <block wx:for="{{menuList2}}" wx:key="name">
+          <view class="menu-item" bindtap="handleMenuClick" data-name="{{item.name}}">
+            <image src="{{item.icon}}" class="menu-icon" mode="aspectFit"></image>
+            <text class="menu-name">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    
+    <view class="footer-spacer"></view>
+
+  </view>
+
+  <view class="modal-mask" wx:if="{{showNameModal}}">
+    <view class="modal-box">
+      <view class="modal-title">修改昵称</view>
+      <view class="input-wrapper">
+        <input type="nickname" class="nickname-input" placeholder="请输入新昵称" value="{{tempNickName}}" bindinput="onNicknameInput" bindblur="onNicknameConfirm" />
+      </view>
+      <view class="modal-btns">
+        <button class="btn-cancel" bindtap="closeEditNameModal">取消</button>
+        <button class="btn-confirm" bindtap="closeEditNameModal">确定</button>
+      </view>
+    </view>
+  </view>
+
+</view>
