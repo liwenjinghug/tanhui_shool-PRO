@@ -1,25 +1,34 @@
 <view class="container">
   <view class="top-banner"></view>
 
-  <view class="main-content">
-    <view class="profile-section glass-effect" bindtap="openEdit">
-      <view class="user-card">
-        <view class="avatar-section">
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="goBack">
+        <view class="back-arrow"></view>
+      </view>
+      <text class="nav-title">个人中心</text>
+    </view>
+  </view>
+
+  <view class="main-content" style="margin-top: {{statusBarHeight + 44}}px;">
+    <view class="profile-card glass-effect" bindtap="openEdit">
+      <view class="user-main">
+        <view class="avatar-wrap">
           <button class="avatar-btn" open-type="chooseAvatar" catchtap="stopBubble" bindchooseavatar="onChooseAvatar">
             <image class="user-avatar" src="{{userInfo.avatarUrl}}"></image>
-            <view class="camera-icon">📷</view>
+            <view class="camera-tag">📷</view>
           </button>
         </view>
         
-        <view class="user-info">
-          <view class="name-row">
-            <text class="user-name">{{userInfo.nickName}}</text>
-            <text class="edit-btn">✎ 修改资料</text>
+        <view class="user-text">
+          <view class="name-line">
+            <text class="u-name">{{userInfo.nickName}}</text>
+            <text class="u-edit">✎ 编辑</text>
           </view>
-          <view class="info-list">
-            <text class="info-text">{{userInfo.campus || '校区未填'}} | {{userInfo.realName || '姓名未填'}}</text>
-            <text class="info-text">学号：{{userInfo.studentId || '未绑定'}}</text>
-            <text class="info-text">宿舍：{{userInfo.dormBuilding || '-'}}号楼 {{userInfo.dormRoom || '-'}}室</text>
+          <view class="u-details">
+            <text>{{userInfo.campus || '校区未填'}} | {{userInfo.realName || '姓名未填'}}</text>
+            <text>学号：{{userInfo.studentId || '未绑定'}}</text>
+            <text>宿舍：{{userInfo.dormBuilding || '-'}}号楼 {{userInfo.dormRoom || '-'}}室</text>
           </view>
         </view>
       </view>
@@ -30,11 +39,11 @@
         <view class="v-line"></view>
         <text class="card-title">我的服务</text>
       </view>
-      <view class="grid-container">
+      <view class="grid-box">
         <block wx:for="{{menuList1}}" wx:key="name">
-          <view class="menu-item triple" bindtap="handleMenuClick" data-name="{{item.name}}">
-            <image src="{{item.icon}}" class="menu-icon" mode="aspectFit"></image>
-            <text class="menu-name">{{item.name}}</text>
+          <view class="grid-item" bindtap="handleMenuClick" data-name="{{item.name}}">
+            <image src="{{item.icon}}" class="grid-icon" mode="aspectFit"></image>
+            <text class="grid-label">{{item.name}}</text>
           </view>
         </block>
       </view>
@@ -45,11 +54,11 @@
         <view class="v-line"></view>
         <text class="card-title">系统工具</text>
       </view>
-      <view class="grid-container">
+      <view class="grid-box">
         <block wx:for="{{menuList2}}" wx:key="name">
-          <view class="menu-item triple" bindtap="handleMenuClick" data-name="{{item.name}}">
-            <image src="{{item.icon}}" class="menu-icon" mode="aspectFit"></image>
-            <text class="menu-name">{{item.name}}</text>
+          <view class="grid-item" bindtap="handleMenuClick" data-name="{{item.name}}">
+            <image src="{{item.icon}}" class="grid-icon" mode="aspectFit"></image>
+            <text class="grid-label">{{item.name}}</text>
           </view>
         </block>
       </view>
@@ -58,24 +67,24 @@
 
   <view class="modal-mask" wx:if="{{showEditModal}}">
     <view class="modal-box">
-      <view class="modal-title">完善个人资料</view>
+      <view class="modal-head">修改基本信息</view>
       <scroll-view scroll-y class="modal-form">
-        <view class="form-group"><text>真实姓名</text><input value="{{tempData.realName}}" data-f="realName" bindinput="onModalInput"/></view>
-        <view class="form-group">
+        <view class="f-group"><text>真实姓名</text><input value="{{tempData.realName}}" data-f="realName" bindinput="onModalInput"/></view>
+        <view class="f-group">
           <text>校区</text>
           <picker mode="selector" range="{{campusOptions}}" bindchange="onCampusChange">
-            <view class="picker-val">{{tempData.campus || '请选择校区'}}</view>
+            <view class="p-val">{{tempData.campus || '请选择'}}</view>
           </picker>
         </view>
-        <view class="form-group"><text>学号</text><input value="{{tempData.studentId}}" data-f="studentId" bindinput="onModalInput"/></view>
-        <view class="form-row">
-          <view class="half"><text>楼栋</text><input value="{{tempData.dormBuilding}}" data-f="dormBuilding" bindinput="onModalInput" placeholder="如:5栋"/></view>
-          <view class="half"><text>房间号</text><input value="{{tempData.dormRoom}}" data-f="dormRoom" bindinput="onModalInput" placeholder="如:302"/></view>
+        <view class="f-group"><text>学号</text><input value="{{tempData.studentId}}" data-f="studentId" bindinput="onModalInput"/></view>
+        <view class="f-row">
+          <view class="f-half"><text>楼栋</text><input value="{{tempData.dormBuilding}}" data-f="dormBuilding" bindinput="onModalInput" placeholder="5栋"/></view>
+          <view class="f-half"><text>房号</text><input value="{{tempData.dormRoom}}" data-f="dormRoom" bindinput="onModalInput" placeholder="302"/></view>
         </view>
       </scroll-view>
-      <view class="modal-btns">
-        <button class="btn-cancel" bindtap="closeModal">取消</button>
-        <button class="btn-confirm" bindtap="saveInfo">保存更改</button>
+      <view class="m-btns">
+        <button class="b-cancel" bindtap="closeModal">取消</button>
+        <button class="b-save" bindtap="saveInfo">保存</button>
       </view>
     </view>
   </view>

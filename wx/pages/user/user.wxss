@@ -1,61 +1,67 @@
-/* 基础布局 [cite: 54, 71] */
+/* --- 背景与导航 --- */
 .top-banner {
   position: fixed; top: 0; left: 0; width: 100%; height: 260rpx;
   background: #17c385; z-index: -1;
 }
 
-.main-content { padding-top: 20rpx; width: 100%; }
+.custom-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; height: 44px; }
+.nav-content { height: 44px; display: flex; align-items: center; }
+.back-btn { padding: 20rpx 40rpx; }
+.back-arrow { 
+  width: 20rpx; height: 20rpx; 
+  border-left: 4rpx solid #fff; border-bottom: 4rpx solid #fff; 
+  transform: rotate(45deg); 
+}
+.nav-title { 
+  color: #fff; font-size: 32rpx; font-weight: 600; 
+  position: absolute; left: 50%; transform: translateX(-50%); 
+}
 
-/* 磨砂玻璃容器 [cite: 72, 73] */
+/* --- 卡片与分割 --- */
+.main-content { padding: 0 0 40rpx; width: 100%; }
 .glass-effect {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  margin-bottom: 24rpx; /* 卡片视觉分割 [cite: 74] */
-  border-bottom: 1rpx solid rgba(0,0,0,0.05);
+  margin-bottom: 24rpx; /* 卡片分割间距 */
+  border-bottom: 1rpx solid #f0f0f0;
 }
 
-/* 个人信息区样式 [cite: 59, 60] */
-.profile-section { padding: 40rpx 30rpx; }
-.user-card { display: flex; align-items: center; }
-.avatar-section { position: relative; margin-right: 30rpx; }
+/* --- 资料卡片样式 --- */
+.profile-card { padding: 40rpx 30rpx; }
+.user-main { display: flex; align-items: center; }
+.avatar-wrap { position: relative; margin-right: 30rpx; }
 .user-avatar { width: 130rpx; height: 130rpx; border-radius: 50%; border: 4rpx solid #fff; }
-.camera-icon { 
-  position: absolute; bottom: 0; right: 0; background: #333; color: #fff; 
-  font-size: 18rpx; width: 36rpx; height: 36rpx; border-radius: 50%; 
-  display: flex; align-items: center; justify-content: center; 
+.camera-tag {
+  position: absolute; bottom: 0; right: 0; background: #333; color: #fff;
+  font-size: 18rpx; width: 36rpx; height: 36rpx; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
 }
+.u-name { font-size: 38rpx; font-weight: bold; color: #333; }
+.u-edit { font-size: 22rpx; color: #17c385; margin-left: 20rpx; }
+.u-details { display: flex; flex-direction: column; font-size: 24rpx; color: #666; margin-top: 10rpx; line-height: 1.6; }
 
-.user-info { flex: 1; }
-.name-row { display: flex; align-items: baseline; margin-bottom: 12rpx; }
-.user-name { font-size: 38rpx; font-weight: bold; color: #333; }
-.edit-btn { margin-left: 20rpx; font-size: 22rpx; color: #17c385; }
-.info-list { display: flex; flex-direction: column; }
-.info-text { font-size: 24rpx; color: #666; margin-top: 6rpx; }
-
-/* 菜单卡片：一行三个布局 [cite: 76, 77] */
+/* --- 菜单一行三个 --- */
 .menu-card { padding: 30rpx 0; }
-.card-header { display: flex; align-items: center; margin-left: 30rpx; margin-bottom: 30rpx; }
+.card-header { display: flex; align-items: center; margin: 0 0 30rpx 30rpx; }
 .v-line { width: 8rpx; height: 28rpx; background: #17c385; border-radius: 4rpx; }
 .card-title { font-size: 28rpx; font-weight: bold; margin-left: 14rpx; color: #333; }
-
-.grid-container { display: flex; flex-wrap: wrap; }
-.menu-item.triple {
-  width: 33.33%; /* 🔴 关键：一行三个 [cite: 77] */
+.grid-box { display: flex; flex-wrap: wrap; }
+.grid-item {
+  width: 33.33%; /* 🔴 一行三个 */
   display: flex; flex-direction: column; align-items: center; padding: 25rpx 0;
 }
-.menu-icon { width: 64rpx; height: 64rpx; margin-bottom: 12rpx; }
-.menu-name { font-size: 24rpx; color: #444; }
+.grid-icon { width: 64rpx; height: 64rpx; margin-bottom: 16rpx; }
+.grid-label { font-size: 24rpx; color: #444; }
 
-/* 弹窗样式 [cite: 80, 81, 83] */
+/* --- 弹窗样式 --- */
 .modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
-.modal-box { width: 85%; background: #fff; border-radius: 24rpx; padding: 40rpx; }
-.modal-title { font-weight: bold; text-align: center; margin-bottom: 40rpx; }
-.form-group { margin-bottom: 30rpx; border-bottom: 1rpx solid #eee; padding-bottom: 10rpx; }
-.form-group text { font-size: 22rpx; color: #999; display: block; }
-.form-group input, .picker-val { height: 60rpx; font-size: 28rpx; }
-.form-row { display: flex; justify-content: space-between; }
-.half { width: 45%; border-bottom: 1rpx solid #eee; }
-.modal-btns { display: flex; justify-content: space-between; margin-top: 40rpx; }
-.btn-confirm { background: #17c385; color: #fff; width: 46%; border-radius: 40rpx; font-size: 28rpx; }
-.btn-cancel { background: #f5f5f5; color: #999; width: 46%; border-radius: 40rpx; font-size: 28rpx; }
+.modal-box { width: 85%; background: #fff; border-radius: 24rpx; padding: 40rpx; box-sizing: border-box; }
+.modal-head { font-weight: bold; text-align: center; margin-bottom: 40rpx; }
+.f-group { margin-bottom: 30rpx; border-bottom: 1rpx solid #f0f0f0; padding-bottom: 10rpx; }
+.f-group text { font-size: 22rpx; color: #999; display: block; }
+.f-group input, .p-val { height: 60rpx; font-size: 28rpx; }
+.f-row { display: flex; justify-content: space-between; }
+.f-half { width: 45%; border-bottom: 1rpx solid #f0f0f0; }
+.m-btns { display: flex; justify-content: space-between; margin-top: 40rpx; }
+.m-btns button { width: 46%; border-radius: 40rpx; font-size: 28rpx; }
+.b-save { background: #17c385; color: #fff; }

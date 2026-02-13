@@ -1,10 +1,11 @@
 Page({
   data: {
+    statusBarHeight: 20,
     userInfo: {},
     showEditModal: false,
     tempData: {},
     campusOptions: ['东校区', '北校区', '主校区'],
-    // 菜单配置 [cite: 50, 52]
+    // 菜单配置
     menuList1: [
       { name: '我的徽章', icon: '/images/menu/achievement.png' },
       { name: '我的兑换', icon: '/images/menu/exchange.png' },
@@ -17,8 +18,23 @@ Page({
     ]
   },
 
+  onLoad() {
+    // 获取系统信息以适配状态栏高度
+    const sysInfo = wx.getSystemInfoSync();
+    this.setData({ 
+      statusBarHeight: sysInfo.statusBarHeight 
+    });
+    this.loadUserInfo();
+  },
+
   onShow() {
     this.loadUserInfo();
+  },
+
+  goBack() {
+    wx.navigateBack({ 
+      fail: () => wx.reLaunch({ url: '/pages/index/index' }) 
+    });
   },
 
   loadUserInfo() {
@@ -28,6 +44,7 @@ Page({
     }
   },
 
+  // 打开统一修改弹窗
   openEdit() {
     this.setData({
       showEditModal: true,
@@ -48,15 +65,13 @@ Page({
     const updated = this.data.tempData;
     // 更新本地缓存
     wx.setStorageSync('userProfile', updated);
-    this.setData({ userInfo: updated, showEditModal: false });
+    this.setData({ 
+      userInfo: updated, 
+      showEditModal: false 
+    });
     
-    // 调用更新接口
-    this.updateUserInfoInDB(updated);
+    // 调用更新接口（此处可以根据实际后端接口补全请求逻辑）
     wx.showToast({ title: '修改成功', icon: 'success' });
-  },
-
-  updateUserInfoInDB(data) {
-    // 逻辑同你提供的 user.js，发送数据到后端
   },
 
   closeModal() {
@@ -66,8 +81,16 @@ Page({
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail;
     this.setData({ 'userInfo.avatarUrl': avatarUrl });
-    // 缓存同步逻辑...
+    // 同时更新缓存
+    const userProfile = wx.getStorageSync('userProfile') || {};
+    userProfile.avatarUrl = avatarUrl;
+    wx.setStorageSync('userProfile', userProfile);
   },
 
-  stopBubble() {} // 阻止事件冒泡
+  handleMenuClick(e) {
+    const name = e.currentTarget.dataset.name;
+    wx.showToast({ title: '点击了' + name, icon: 'none' });
+  },
+
+  stopBubble() {} // 阻止头像点击事件冒泡到卡片点击事件
 });
