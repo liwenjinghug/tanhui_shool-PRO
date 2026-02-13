@@ -222,4 +222,27 @@ CREATE TABLE `user_task_log`  (
 INSERT INTO `user_task_log` VALUES (1, 1, '步行上课', 10, '2026-02-11 18:20:38', '2026-02-11');
 INSERT INTO `user_task_log` VALUES (2, 1, '光盘行动', 5, '2026-02-11 18:20:38', '2026-02-11');
 
+-- ----------------------------
+-- Table structure for sys_dorm
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dorm`;
+CREATE TABLE `sys_dorm` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `campus` varchar(50) DEFAULT '本校区' COMMENT '校区',
+  `building_name` varchar(50) NOT NULL COMMENT '楼栋名称',
+  `room_number` varchar(50) NOT NULL COMMENT '房间号',
+  `type` varchar(50) DEFAULT '4人间' COMMENT '宿舍类型',
+  `status` tinyint(1) DEFAULT 1 COMMENT '状态:1启用,0停用',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='宿舍信息表';
+
+-- ----------------------------
+-- Records of sys_dorm
+-- ----------------------------
+INSERT INTO `sys_dorm` VALUES (1, '东校区', '5栋', '302', '4人间', 1, '2026-02-13 10:00:00');
+INSERT INTO `sys_dorm` VALUES (2, '东校区', '5栋', '303', '4人间', 1, '2026-02-13 10:00:00');
+INSERT INTO `sys_dorm` VALUES (3, '北校区', '8栋', '101', '6人间', 1, '2026-02-13 10:00:00');
+INSERT INTO `sys_dorm` VALUES (4, '北校区', '8栋', '102', '6人间', 1, '2026-02-13 10:00:00');
+
 SET FOREIGN_KEY_CHECKS = 1;
