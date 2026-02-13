@@ -9,6 +9,37 @@ Page({
     }
   },
 
+  onLoad() {
+    // 如果本地有 openid（非首次登录），尝试从服务器拿回最新的昵称和头像并填充
+    const userProfile = wx.getStorageSync('userProfile');
+    if (userProfile && userProfile.openid) {
+      wx.request({
+        url: `http://localhost:8080/api/wx/user/info?openid=${userProfile.openid}`,
+        method: 'GET',
+        success: (res) => {
+          if (res.statusCode === 200 && res.data) {
+            const serverUser = res.data;
+            const nick = serverUser.nickname || userProfile.nickname || '';
+            const avatar = serverUser.avatarUrl || userProfile.avatarUrl || defaultAvatarUrl;
+
+            this.setData({
+              'userInfo.nickName': nick,
+              'userInfo.avatarUrl': avatar
+            });
+
+            // 合并并更新本地缓存的信息，保持最新
+            const merged = Object.assign({}, userProfile, serverUser, { nickname: nick, avatarUrl: avatar });
+            wx.setStorageSync('userProfile', merged);
+          }
+        },
+        fail: (err) => {
+          // 静默失败，不影响登录流程
+          console.warn('获取用户信息失败:', err);
+        }
+      });
+    }
+  },
+
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail;
     this.setData({ 'userInfo.avatarUrl': avatarUrl });
@@ -28,8 +59,9 @@ Page({
 
     wx.showLoading({ title: '登录中...' });
 
-    // 本地测试固定ID，真实环境请用 wx.login
-    const mockOpenid = 'test_user_888'; 
+    // 使用缓存中的 openid（如果有），方便非首次登录直接复用
+    const storedProfile = wx.getStorageSync('userProfile') || {};
+    const mockOpenid = storedProfile.openid || 'test_user_888';
 
     wx.request({
       url: 'http://localhost:8080/api/wx/auth/login',

@@ -16,7 +16,7 @@
 
     <view class="input-section">
       <text class="label">昵称</text>
-      <input type="nickname" class="nick-input" placeholder="请输入昵称" bindchange="onInputChange" />
+      <input type="nickname" class="nick-input" placeholder="请输入昵称" bindinput="onInputChange" value="{{userInfo.nickName}}" />
     </view>
 
     <button class="login-btn" bindtap="handleLogin">一键开启低碳之旅</button>
