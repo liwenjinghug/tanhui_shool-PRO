@@ -61,8 +61,8 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('auth_token')
-  const user = localStorage.getItem('auth_user')
+  const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token')
+  const user = localStorage.getItem('auth_user') || sessionStorage.getItem('auth_user')
 
   // 验证 token 是否有效（简单检查：token 存在且不为空，user 数据完整）
   const isValidToken = token && token.trim() !== '' && user
@@ -72,6 +72,8 @@ router.beforeEach((to, from, next) => {
     console.warn('检测到无效的 token，清除本地存储')
     localStorage.removeItem('auth_token')
     localStorage.removeItem('auth_user')
+    sessionStorage.removeItem('auth_token')
+    sessionStorage.removeItem('auth_user')
   }
 
   // 如果已登录（有效 token）

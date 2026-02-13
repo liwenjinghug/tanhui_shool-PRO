@@ -129,7 +129,7 @@ Page({
     if (!userProfile || !userProfile.openid) return;
 
     wx.request({
-      url: 'http://localhost:3000/api/user/info', // 调用刚才写的接口
+      url: 'http://localhost:8080/api/wx/user/info', // 调用刚才写的接口
       method: 'GET',
       data: { openid: userProfile.openid },
       success: (res) => {
@@ -223,13 +223,36 @@ Page({
               o3: apiData.o3
             }
           });
+        } else {
+          // API 返回错误或无数据，使用模拟数据
+          console.warn('API返回异常，启用模拟数据', res);
+          this.useMockAQIData();
         }
       },
       fail: (err) => {
         wx.hideLoading();
-        console.error('API请求失败', err);
+        console.error('API请求失败，启用模拟数据', err);
+        this.useMockAQIData();
       }
     });
+  },
+
+  useMockAQIData() {
+    this.setData({
+      aqiValue: '45',
+      aqiLevel: '优',
+      lastAQITime: Date.now(),
+      aqiDetails: {
+        pm25: '28',
+        pm10: '42',
+        no2: '35',
+        so2: '8',
+        co: '0.6',
+        o3: '92'
+      }
+    });
+    // 显示轻提示告知用户（可选）
+    // wx.showToast({ title: '已切换至模拟数据', icon: 'none' });
   },
 
   // --- 辅助功能：30分钟自动刷新 ---
@@ -286,7 +309,7 @@ Page({
 
   fetchTaskData(openid) {
     wx.request({
-      url: 'http://localhost:3000/api/home/tasks',
+      url: 'http://localhost:8080/api/wx/home/tasks',
       method: 'GET',
       data: { openid },
       success: (res) => {

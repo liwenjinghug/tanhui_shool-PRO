@@ -14,11 +14,11 @@ const router = useRouter()
 
 // 计算是否已登录
 const isLoggedIn = computed(() => {
-  return !!localStorage.getItem('auth_token')
+  return !!(localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token'))
 })
 
 onMounted(() => {
-  const token = localStorage.getItem('auth_token')
+  const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token')
 
   // 如果未登录且不在登录页，跳转到登录页
   if (!token && router.currentRoute.value.path !== '/login') {
@@ -51,4 +51,3 @@ body {
   margin: 0;
 }
 </style>
-

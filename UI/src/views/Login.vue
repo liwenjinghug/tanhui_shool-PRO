@@ -101,8 +101,15 @@ export default {
 
         const data = await resp.json()
         console.log('Login success, received data keys:', Object.keys(data || {}))
-        localStorage.setItem('auth_token', data.token)
-        localStorage.setItem('auth_user', JSON.stringify(data.user))
+
+        const storage = remember.value ? localStorage : sessionStorage
+        storage.setItem('auth_token', data.token)
+        storage.setItem('auth_user', JSON.stringify(data.user))
+
+        // 清理另一个存储，防止冲突
+        const otherStorage = remember.value ? sessionStorage : localStorage
+        otherStorage.removeItem('auth_token')
+        otherStorage.removeItem('auth_user')
 
         if (remember.value) {
           localStorage.setItem('remember_account', account.value)

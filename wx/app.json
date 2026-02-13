@@ -11,5 +11,6 @@
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
   },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }

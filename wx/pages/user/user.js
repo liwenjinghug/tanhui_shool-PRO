@@ -28,7 +28,9 @@ Page({
   },
 
   onLoad() {
-    const sysInfo = wx.getSystemInfoSync();
+    // 兼容处理：使用新 API 或回退旧 API
+    const getWindowInfo = wx.getWindowInfo || wx.getSystemInfoSync;
+    const sysInfo = getWindowInfo();
     this.setData({ statusBarHeight: sysInfo.statusBarHeight });
   },
 
@@ -123,7 +125,7 @@ Page({
     }
 
     wx.request({
-      url: 'http://localhost:3000/api/updateUser', // 你的后端地址
+      url: 'http://localhost:8080/api/wx/user/update', // 你的后端地址
       method: 'POST',
       data: {
         openid: openid,

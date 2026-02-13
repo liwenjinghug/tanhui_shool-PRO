@@ -1,5 +1,5 @@
 server:
-  port: 9090 # 后端运行在 9090
+  port: 8080 # 后端运行在 8080
 
 spring:
   datasource:

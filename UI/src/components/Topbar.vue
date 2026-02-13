@@ -49,11 +49,17 @@ const showUserMenu = ref(false)
 // 用于强制刷新 computed 的响应式变量
 const userDataVersion = ref(0)
 
+// Helper to get auth user from either storage
+function getAuthUser() {
+  const json = localStorage.getItem('auth_user') || sessionStorage.getItem('auth_user')
+  return json ? JSON.parse(json) : {}
+}
+
 const userName = computed(() => {
   // 访问 userDataVersion 使其成为依赖项
   userDataVersion.value
   try {
-    const user = JSON.parse(localStorage.getItem('auth_user') || '{}')
+    const user = getAuthUser()
     // 优先显示：nickname（昵称）> realName（真实姓名）> username（用户名）
     return user.nickname || user.realName || user.username || 'User'
   } catch {
@@ -65,7 +71,7 @@ const userAvatar = computed(() => {
   // 访问 userDataVersion 使其成为依赖项
   userDataVersion.value
   try {
-    const user = JSON.parse(localStorage.getItem('auth_user') || '{}')
+    const user = getAuthUser()
     const url = user.avatarUrl || 'default'
     if (url === 'boy') return avatarBoy
     if (url === 'girl') return avatarGirl
@@ -133,6 +139,8 @@ function logout() {
   showUserMenu.value = false
   localStorage.removeItem('auth_token')
   localStorage.removeItem('auth_user')
+  sessionStorage.removeItem('auth_token')
+  sessionStorage.removeItem('auth_user')
   router.push('/login')
 }
 </script>

@@ -32,7 +32,7 @@ Page({
     const mockOpenid = 'test_user_888'; 
 
     wx.request({
-      url: 'http://localhost:3000/api/login',
+      url: 'http://localhost:8080/api/wx/auth/login',
       method: 'POST',
       data: {
         openid: mockOpenid,

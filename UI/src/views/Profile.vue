@@ -244,8 +244,11 @@ async function confirmAvatar() {
 
 // Data fetching
 async function initData() {
-  // 先从 localStorage 加载数据（确保有基础数据）
-  const localUser = JSON.parse(localStorage.getItem('auth_user') || '{}')
+  // Check which storage is being used
+  const storage = localStorage.getItem('auth_token') ? localStorage : sessionStorage
+
+  // 先从 storage 加载数据（确保有基础数据）
+  const localUser = JSON.parse(storage.getItem('auth_user') || '{}')
 
   // 设置默认值，确保所有字段都有值
   const defaultData = {
@@ -276,9 +279,9 @@ async function initData() {
         }
       })
 
-      // 更新 localStorage 为最新数据
+      // 更新 storage 为最新数据
       const updated = { ...localUser, ...res.data }
-      localStorage.setItem('auth_user', JSON.stringify(updated))
+      storage.setItem('auth_user', JSON.stringify(updated))
     }
   } catch (e) {
     console.warn('从服务器获取用户信息失败，使用本地数据', e)
