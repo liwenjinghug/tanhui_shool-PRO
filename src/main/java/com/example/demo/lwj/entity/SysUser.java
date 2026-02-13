@@ -15,9 +15,13 @@ public class SysUser implements Serializable {
 
     private String openid;
 
+    private String campus;
+
     private String nickname;
 
     private String avatarUrl;
+
+    private Boolean isProfileCompleted;
 
     private String realName;
 
@@ -33,5 +37,7 @@ public class SysUser implements Serializable {
     private Integer status;
 
     private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
 }
 

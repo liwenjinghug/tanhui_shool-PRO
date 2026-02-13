@@ -142,8 +142,10 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '微信OpenID',
+  `campus` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '校区',
   `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信昵称',
   `avatar_url` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信头像',
+  `is_profile_completed` tinyint(1) NULL DEFAULT 0 COMMENT '是否完善资料:0=否,1=是',
   `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '真实姓名',
   `student_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '学号/工号',
   `dorm_building` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '宿舍楼栋',
@@ -158,7 +160,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 'test_user_888', 'Jasmine', 'http://tmp/test.jpg', '张三', '2023001', '5栋', '302', 100, '2026-02-11 18:20:38', '2026-02-11 18:20:38');
+INSERT INTO `sys_user` VALUES (1, 'test_user_888', '东校区', 'Jasmine', 'http://tmp/test.jpg', 1, '张三', '2023001', '5栋', '302', 100, '2026-02-11 18:20:38', '2026-02-11 18:20:38');
 
 -- ----------------------------
 -- Table structure for user_baseline

@@ -75,16 +75,55 @@ public class WxApiController {
 
         SysUser user = userService.getOne(new QueryWrapper<SysUser>().eq("openid", openid));
         if (user == null) {
+            // 新用户注册
             user = new SysUser();
             user.setOpenid(openid);
             user.setCreateTime(java.time.LocalDateTime.now());
-            user.setPoints(100); // 新用户赠送积分
+            user.setPoints(0); // 新用户赠送积分
+            user.setIsProfileCompleted(false); // 首次登录需要完善资料
+            user.setStatus(1); // 默认启用
         }
         user.setNickname(nickname);
         user.setAvatarUrl(avatarUrl);
+        user.setUpdateTime(java.time.LocalDateTime.now());
         userService.saveOrUpdate(user);
 
         return user;
+    }
+
+    /**
+     * 完善用户资料
+     * 对应前端: POST /api/wx/user/complete-profile
+     */
+    @PostMapping("/user/complete-profile")
+    public Map<String, Object> completeProfile(@RequestBody Map<String, Object> body) {
+        String openid = (String) body.get("openid");
+        String campus = (String) body.get("campus");
+        String realName = (String) body.get("realName");
+        String studentId = (String) body.get("studentId");
+        String dormBuilding = (String) body.get("dormBuilding");
+        String dormRoom = (String) body.get("dormRoom");
+
+        Map<String, Object> res = new HashMap<>();
+
+        SysUser user = userService.getOne(new QueryWrapper<SysUser>().eq("openid", openid));
+        if (user != null) {
+            user.setCampus(campus);
+            user.setRealName(realName);
+            user.setStudentId(studentId);
+            user.setDormBuilding(dormBuilding);
+            user.setDormRoom(dormRoom);
+            user.setIsProfileCompleted(true);
+            user.setUpdateTime(java.time.LocalDateTime.now());
+            userService.updateById(user);
+
+            res.put("success", true);
+            res.put("message", "资料完善成功");
+        } else {
+            res.put("success", false);
+            res.put("message", "用户不存在");
+        }
+        return res;
     }
 
     // 模拟小程序登录换取 openid (仅用于开发测试)

@@ -1,0 +1,46 @@
+<view class="container">
+  <image class="page-bg" src="/images/bg_campus.png" mode="aspectFill"></image>
+
+  <view class="glass-card">
+    <view class="header-section">
+      <image src="/images/icon-panda-face.png" class="logo"></image>
+      <text class="title">完善个人信息</text>
+      <text class="subtitle">首次登录请填写基本信息</text>
+    </view>
+
+    <view class="form-body">
+      <view class="form-item">
+        <text class="label">校区</text>
+        <picker mode="selector" range="{{campusOptions}}" value="{{campusIndex}}" bindchange="onCampusChange">
+          <view class="picker-inner">
+            <text class="{{campus ? 'value' : 'placeholder'}}">{{campus || '请选择校区'}}</text>
+            <text class="arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <text class="label">真实姓名</text>
+        <input class="input-inner" placeholder="请输入姓名" value="{{realName}}" bindinput="onRealNameInput" placeholder-class="ph" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">学号 / 工号</text>
+        <input class="input-inner" placeholder="请输入学号或工号" value="{{studentId}}" bindinput="onStudentIdInput" placeholder-class="ph" />
+      </view>
+
+      <view class="row-group">
+        <view class="form-item half">
+          <text class="label">宿舍楼栋</text>
+          <input class="input-inner" placeholder="例: 5栋" value="{{dormBuilding}}" bindinput="onDormBuildingInput" placeholder-class="ph" />
+        </view>
+        <view class="form-item half">
+          <text class="label">房间号</text>
+          <input class="input-inner" placeholder="例: 302" value="{{dormRoom}}" bindinput="onDormRoomInput" placeholder-class="ph" />
+        </view>
+      </view>
+    </view>
+
+    <button class="submit-btn" bindtap="handleSubmit">提交并开启低碳之旅</button>
+  </view>
+</view>

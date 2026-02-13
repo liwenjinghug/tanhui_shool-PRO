@@ -41,22 +41,28 @@ Page({
       },
       success: (res) => {
         wx.hideLoading();
-        if (res.statusCode === 200) {
-          console.log('登录成功，准备写入缓存:', res.data);
-          
-          // --- 关键修改在这里！ ---
-          wx.setStorageSync('userProfile', {
-            ...res.data, 
-            isLogin: true,
-            // ⚠️ 必须记录当前时间，否则首页会认为你已过期
-            lastActiveTime: Date.now() 
-          });
-          // ----------------------
+        if (res.statusCode === 200 && res.data) {
+          console.log('登录成功，用户信息:', res.data);
 
-          wx.showToast({ title: '登录成功' });
-          
+          // 保存用户信息到本地缓存
+          const userProfile = {
+            ...res.data,
+            isLogin: true,
+            lastActiveTime: Date.now()
+          };
+          wx.setStorageSync('userProfile', userProfile);
+
+          wx.showToast({ title: '登录成功', icon: 'success' });
+
           setTimeout(() => {
-            wx.reLaunch({ url: '/pages/index/index' });
+            // 检查是否需要完善资料
+            if (!res.data.isProfileCompleted) {
+              // 首次登录，跳转到资料完善页面
+              wx.redirectTo({ url: '/pages/profile-setup/profile-setup' });
+            } else {
+              // 已完善资料，直接进入首页
+              wx.reLaunch({ url: '/pages/index/index' });
+            }
           }, 1000);
         } else {
           wx.showToast({ title: '登录失败', icon: 'none' });
@@ -67,7 +73,7 @@ Page({
         console.error('登录请求失败:', err);
         wx.showModal({
           title: '连接失败',
-          content: '无法连接后端，请检查 node server.js 是否运行',
+          content: '无法连接后端，请检查服务器是否运行',
           showCancel: false
         });
       }
