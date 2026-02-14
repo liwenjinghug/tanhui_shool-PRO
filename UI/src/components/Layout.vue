@@ -34,26 +34,7 @@ import TagsView from './TagsView.vue'
 .content {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
   background: #f5f7fa;
   padding: 20px;
 }
-
-.content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.content::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-.content::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
 </style>
-
